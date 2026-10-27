@@ -1,6 +1,6 @@
 # KayaTravel
 Agenda interactif collectif
-# KayaTravel
+
 
 KayaTravel est une application Java Swing pour la gestion d’événements et de notifications d’une structure touristique ou de voyage. Elle permet notamment de :
 
