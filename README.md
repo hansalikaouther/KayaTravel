@@ -1,109 +1,82 @@
-# KayaTravel
-Agenda interactif collectif
+# Kaya Chat
 
+Kaya Chat est une application de messagerie instantanée Java en réseau, composée d'un serveur et de plusieurs clients graphiques Swing. Elle permet aux utilisateurs de discuter en mode public, en message privé et dans des salons de discussion.
 
-KayaTravel est une application Java Swing pour la gestion d’événements et de notifications d’une structure touristique ou de voyage. Elle permet notamment de :
+## Fonctionnalités
 
-- créer un compte et se connecter,
-- gérer des utilisateurs avec différents rôles,
-- ajouter, modifier et supprimer des événements,
-- consulter les notifications,
-- commenter les activités et suivre l’activité de la plateforme.
-
-## Fonctionnalités principales
-
-- Authentification utilisateur
-- Inscription avec validation de mot de passe et email
-- Gestion des rôles : admin / employé / autre type d’utilisateur
-- Ajout et gestion d’événements
-- Notifications dynamiques
-- Système de commentaires
-- Interface graphique Swing moderne
-- Sauvegarde locale des données dans des fichiers .dat
-
-## Stack technique
-
-- Java 21
-- Maven
-- Swing (interface graphique)
-- Sérialisation Java pour le stockage local des données
-
-## Prérequis
-
-- JDK 21 ou plus
-- Maven installé
-- Windows, Linux ou macOS
-
-## Cloner et lancer le projet
-
-```bash
-git clone <url-du-projet>
-cd KAYATRAVEL
-mvn clean package
-java -jar target/kayatravel-ihm-0.1.0.jar
-```
-
-## Lancement rapide sous Windows
-
-Un script est aussi fourni :
-
-```bat
-KayaTravel.bat
-```
-
-Il démarre directement le fichier JAR généré dans le dossier `target`.
-
-## Comptes par défaut
-
-L’application crée automatiquement des comptes d’exemple s’ils n’existent pas :
-
-- Admin : `admin@kaya.com` / `Admin123`
-- Employé : `emp@kaya.com` / `Employe123`
+- Serveur multi-utilisateurs
+- Messagerie globale (broadcast)
+- Messages privés entre utilisateurs
+- Salons de discussion avec création, jointure et départ
+- Liste des utilisateurs connectés
+- Liste des salons disponibles
+- Interface graphique Swing pour les clients
 
 ## Structure du projet
 
-```text
-KAYATRAVEL/
-├── src/
-│   └── main/
-│       └── java/
-│           ├── Main.java
-│           ├── controller/
-│           ├── model/
-│           └── view/
-├── pom.xml
-├── KayaTravel.bat
-├── target/
-├── users.dat
-├── events.dat
-├── notifications.dat
-├── comments.dat
-└── README.md
-```
+- `ChatServer.java` : serveur central gérant les connexions, les salons et les messages
+- `ChatClient.java` : client graphique qui permet de se connecter, envoyer des messages et gérer les salons
+- `Message.java` : structure des messages échangés entre le client et le serveur
 
-## Données enregistrées
+## Prérequis
 
-Les données sont stockées localement dans le dossier du projet sous forme de fichiers :
+- Java JDK 8 ou plus récent
+- Un terminal ou un IDE Java (Eclipse, IntelliJ IDEA, VS Code, etc.)
 
-- `users.dat`
-- `events.dat`
-- `notifications.dat`
-- `comments.dat`
+## Lancer le projet
 
-## Commandes Maven utiles
+### 1. Compiler le projet
+
+Depuis le dossier du projet :
 
 ```bash
-mvn compile
-mvn test
-mvn package
+javac *.java
 ```
 
-## Notes
+### 2. Démarrer le serveur
 
-- Le projet est une application desktop locale, donc les données sont enregistrées sur le disque local.
-- Le point d’entrée principal est la classe `Main`.
-- Le fichier de configuration Maven exige Java 21.
+```bash
+java ChatServer
+```
+
+Le serveur écoute par défaut sur le port `12345`.
+
+### 3. Lancer un ou plusieurs clients
+
+Dans un autre terminal :
+
+```bash
+java ChatClient
+```
+
+Une boîte de dialogue s'ouvre alors pour demander :
+
+- l'adresse du serveur (`localhost` par défaut)
+- le port (`12345`)
+- le nom d'utilisateur
+
+## Utilisation
+
+- Envoyer un message à tous : sélectionnez `All` dans la liste de destinataires
+- Envoyer un message privé : double-cliquez sur un utilisateur dans la liste
+- Créer un salon : utilisez le bouton `Create`
+- Rejoindre un salon : sélectionnez un salon puis cliquez sur `Join`
+- Quitter un salon : sélectionnez un salon puis cliquez sur `Leave`
+
+## Remarques
+
+- Le serveur doit être démarré avant les clients.
+- Les clients se connectent au serveur via `localhost` sur le port `12345` par défaut.
+- Le projet utilise la sérialisation Java pour transmettre les objets `Message` entre le client et le serveur.
+
+## Exemple de scénario
+
+1. Démarrer `ChatServer`
+2. Ouvrir deux ou plusieurs instances de `ChatClient`
+3. Connecter chaque client avec un pseudo différent
+4. Envoyer des messages globaux ou privés
+5. Créer et rejoindre des salons pour communiquer en groupe
 
 ## Licence
 
-Ce projet est fourni sans licence spécifique dans le dépôt actuel.
+Aucune licence spécifique n'est définie dans ce projet pour le moment.
